@@ -1,0 +1,50 @@
+# robots.txt — Aarupadaiyar KJ Portfolio
+# https://aarupadaiyar.netlify.app/
+
+User-agent: *
+Allow: /
+Disallow: /apply_seo.ps1
+Disallow: /append_css.ps1
+Disallow: /fix_encoding.ps1
+Disallow: /split_portfolio.ps1
+
+# ── AI Search Crawlers (explicitly permitted) ──────────
+
+# OpenAI / ChatGPT
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Google AI (Gemini / AI Overviews)
+User-agent: Google-Extended
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Anthropic Claude
+User-agent: ClaudeBot
+Allow: /
+
+# Bing / Copilot
+User-agent: Bingbot
+Allow: /
+
+User-agent: msnbot
+Allow: /
+
+# Common SEO crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: AhrefsBot
+Allow: /
+
+User-agent: Semrushbot
+Allow: /
+
+# ── Sitemap ──────────────────────────────────────────
+Sitemap: https://aarupadaiyar.netlify.app/sitemap.xml
