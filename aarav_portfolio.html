@@ -35,7 +35,46 @@
       color: var(--fg);
       font-family: var(--font);
       overflow-x: hidden;
-      scroll-behavior: smooth
+      scroll-behavior: smooth;
+      cursor: none;
+    }
+
+    /* ── CUSTOM CURSOR ── */
+    .cursor-dot,
+    .cursor-ring {
+      position: fixed;
+      pointer-events: none;
+      z-index: 99999;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: opacity .25s;
+    }
+
+    .cursor-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
+    }
+
+    .cursor-ring {
+      width: 36px;
+      height: 36px;
+      border: 2px solid rgba(182, 0, 168, .65);
+      background: transparent;
+      transition: width .25s, height .25s, border-color .25s, opacity .25s;
+    }
+
+    body.cursor-hover .cursor-ring {
+      width: 56px;
+      height: 56px;
+      border-color: rgba(182, 0, 168, 1);
+      box-shadow: 0 0 18px rgba(182, 0, 168, .4);
+    }
+
+    a, button, [role="button"], input, textarea, select,
+    label, .tech-pill, .project-card, .resume-card, .social-card, nav a {
+      cursor: none;
     }
 
     .hero-heading {
@@ -201,6 +240,202 @@
       }
     }
 
+    /* ── CUSTOM CURSOR ── */
+    *, *::before, *::after { cursor: none !important; }
+    .cursor-dot {
+      position: fixed;
+      top: 0; left: 0;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%,-50%);
+      transition: transform .08s ease, background .25s, width .25s, height .25s;
+      box-shadow: 0 0 12px rgba(182,0,168,.9), 0 0 24px rgba(182,0,168,.4);
+      mix-blend-mode: screen;
+    }
+    .cursor-ring {
+      position: fixed;
+      top: 0; left: 0;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(182,0,168,.55);
+      pointer-events: none;
+      z-index: 99998;
+      transform: translate(-50%,-50%);
+      transition: transform .18s cubic-bezier(.23,1,.32,1),
+                  width .25s cubic-bezier(.23,1,.32,1),
+                  height .25s cubic-bezier(.23,1,.32,1),
+                  border-color .25s,
+                  background .25s;
+      backdrop-filter: blur(2px);
+    }
+    body.cursor-hover .cursor-dot  { width: 14px; height: 14px; background: #fff; box-shadow: 0 0 20px rgba(182,0,168,1); }
+    body.cursor-hover .cursor-ring { width: 56px; height: 56px; border-color: rgba(182,0,168,.85); background: rgba(182,0,168,.06); }
+
+    /* ── TECH MARQUEE SECTION (horizontal) ── */
+    #tech-marquee {
+      background: var(--bg);
+      padding: 3.5rem 0 3rem;
+      overflow: hidden;
+      position: relative;
+      border-top: 1px solid rgba(215,226,234,.06);
+      border-bottom: 1px solid rgba(215,226,234,.06);
+    }
+
+    .marquee-label {
+      text-align: center;
+      font-family: var(--mono);
+      font-size: .65rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--fg);
+      opacity: .35;
+      margin-bottom: 1.8rem;
+    }
+
+    /* Single horizontal track */
+    .marquee-track {
+      display: flex;
+      gap: 1rem;
+      width: max-content;
+      animation: scrollLeft 28s linear infinite;
+    }
+    .marquee-track:hover { animation-play-state: paused; }
+    .marquee-track + .marquee-track { animation-direction: reverse; margin-top: .75rem; }
+
+    .marquee-wrapper {
+      overflow: hidden;
+      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    }
+
+    @keyframes scrollLeft {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    .tech-pill {
+      font-family: var(--mono);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: .55rem 1.3rem;
+      border-radius: 50px;
+      white-space: nowrap;
+      border: 1px solid transparent;
+      background: rgba(182, 0, 168, .06);
+      color: var(--fg);
+      position: relative;
+      transition: box-shadow .3s, border-color .3s, color .3s;
+      box-shadow:
+        0 0 8px rgba(182, 0, 168, .18),
+        0 0 0 1px rgba(182, 0, 168, .28),
+        inset 0 0 12px rgba(182, 0, 168, .05);
+      flex-shrink: 0;
+    }
+
+    .tech-pill:hover {
+      border-color: var(--accent);
+      color: #fff;
+      box-shadow:
+        0 0 20px rgba(182, 0, 168, .55),
+        0 0 0 1px rgba(182, 0, 168, .8),
+        inset 0 0 20px rgba(182, 0, 168, .12);
+    }
+
+    /* ── RESUME SECTION — compact pill-buttons ── */
+    #resume {
+      background: var(--bg);
+      padding: 5rem 2.5rem 4rem;
+      text-align: center;
+    }
+
+    .resume-heading {
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: .9;
+      letter-spacing: -.02em;
+      margin-bottom: .5rem;
+    }
+
+    .resume-sub {
+      font-size: clamp(.8rem, 1.2vw, .95rem);
+      opacity: .5;
+      font-weight: 300;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 2.4rem;
+    }
+
+    .resume-cards {
+      display: flex;
+      gap: .85rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .resume-card {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      padding: .65rem 1.4rem;
+      border-radius: 50px;
+      border: 1px solid rgba(182,0,168,.35);
+      background: rgba(182,0,168,.06);
+      color: var(--fg);
+      text-decoration: none;
+      font-family: var(--mono);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      transition: border-color .25s, background .25s, box-shadow .25s, transform .2s, color .25s;
+      box-shadow: 0 0 0 1px rgba(182,0,168,.18);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .resume-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(182,0,168,.18) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity .3s;
+      border-radius: inherit;
+    }
+
+    .resume-card:hover::before { opacity: 1; }
+
+    .resume-card:hover {
+      border-color: var(--accent);
+      color: #fff;
+      background: rgba(182,0,168,.14);
+      box-shadow: 0 0 22px rgba(182,0,168,.45), 0 0 0 1px rgba(182,0,168,.7);
+      transform: translateY(-2px) scale(1.04);
+    }
+
+    .resume-card-icon {
+      font-size: 1rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .resume-card-title {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+    }
+
+    /* hide desc and CTA — pill-buttons show only icon+title */
+    .resume-card-desc,
+    .resume-card-cta { display: none; }
+
     /* ── SOCIAL MEDIA SECTION ── */
     #social {
       background: var(--bg);
@@ -303,16 +538,143 @@
       transform: translateY(-4px);
     }
 
-    /* LinkedIn cards */
+    /* ── LinkedIn native post cards ── */
     .social-card.linkedin {
-      width: 350px;
+      width: 420px;
+      display: flex;
+      flex-direction: column;
+      background: transparent;
+      border-color: transparent;
     }
 
-    .social-card.linkedin iframe {
-      width: 100%;
-      min-height: 420px;
-      border: none;
-      display: block;
+    .li-post-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      background: #ffffff;
+      border-radius: 1.25rem;
+      border: 1px solid #e0e0e0;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,.10);
+    }
+
+    .li-post-header {
+      display: flex;
+      align-items: center;
+      gap: .85rem;
+      padding: 1.1rem 1.25rem .75rem;
+      border-bottom: 1px solid #e8e8e8;
+      background: #ffffff;
+    }
+
+    .li-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0077b5 0%, #00a0dc 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+      letter-spacing: 0;
+    }
+
+    .li-author-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .li-author-name {
+      font-size: .88rem;
+      font-weight: 700;
+      color: #000000;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .li-author-title {
+      font-size: .72rem;
+      color: rgba(0,0,0,.55);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: .1rem;
+    }
+
+    .li-post-date {
+      font-size: .68rem;
+      color: rgba(0,0,0,.4);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .li-post-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: .95rem 1.25rem;
+      font-size: .82rem;
+      line-height: 1.65;
+      color: rgba(0,0,0,.85);
+      white-space: pre-wrap;
+      max-height: 340px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(10,102,194,.35) transparent;
+      background: #ffffff;
+    }
+
+    .li-post-body::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .li-post-body::-webkit-scrollbar-thumb {
+      background: rgba(10,102,194,.35);
+      border-radius: 2px;
+    }
+
+    .li-post-footer {
+      padding: .75rem 1.25rem;
+      border-top: 1px solid #e8e8e8;
+      background: #f9f9f9;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .75rem;
+    }
+
+    .li-badge {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .7rem;
+      color: rgba(0,0,0,.45);
+    }
+
+    .li-badge svg {
+      opacity: .5;
+    }
+
+    .li-view-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      font-size: .72rem;
+      font-weight: 600;
+      color: #0a66c2;
+      text-decoration: none;
+      padding: .4rem .9rem;
+      border: 1px solid rgba(10,102,194,.4);
+      border-radius: 100px;
+      transition: background .2s, border-color .2s;
+      white-space: nowrap;
+    }
+
+    .li-view-link:hover {
+      background: rgba(10,102,194,.15);
+      border-color: rgba(10,102,194,.7);
     }
 
     /* Instagram cards */
@@ -1260,15 +1622,45 @@
         letter-spacing: 0.04em;
       }
 
+
       .loader {
         width: 36px;
         height: 36px;
       }
     }
+
+    /* ─────────────────────────────────────────
+       TECH STACK MARQUEE (horizontal)
+    ───────────────────────────────────────── */
+    #tech-marquee {
+      padding: 80px 0 60px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    /* ─────────────────────────────────────────
+       RESUME SECTION — compact pill-buttons
+    ───────────────────────────────────────── */
+    #resume {
+      padding: 100px 40px 80px;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .tech-pill { font-size: .68rem; padding: 7px 12px; }
+      #resume    { padding: 70px 20px 60px; }
+      .resume-cards { gap: .6rem; }
+    }
   </style>
 </head>
 
 <body>
+
+  <!-- CUSTOM CURSOR -->
+  <div class="cursor-dot" id="cursor-dot"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
 
   <!-- LOADER SCREEN -->
   <div class="loader-wrapper" id="loader-wrapper">
@@ -1315,11 +1707,13 @@
 
   <!-- NAV -->
   <nav>
-    <div class="nav-logo">Aarav</div>
+    <div class="nav-logo">Aarupadaiyar KJ</div>
     <div class="nav-links">
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
       <a href="#projects">Projects</a>
+      <a href="#tech-marquee">Tech Stack</a>
+      <a href="#resume">Resume</a>
       <a href="#contact">Contact</a>
     </div>
   </nav>
@@ -1349,6 +1743,127 @@
     </div>
   </section>
 
+  <!-- TECH STACK MARQUEE -->
+  <section id="tech-marquee">
+    <p class="marquee-label">Tech Stack &middot; Tools &amp; Languages</p>
+
+    <!-- Row 1 — scrolls left -->
+    <div class="marquee-wrapper">
+      <div class="marquee-track">
+        <span class="tech-pill">Python</span>
+        <span class="tech-pill">Scikit-learn</span>
+        <span class="tech-pill">Pandas</span>
+        <span class="tech-pill">NumPy</span>
+        <span class="tech-pill">Matplotlib</span>
+        <span class="tech-pill">FastAPI</span>
+        <span class="tech-pill">MySQL</span>
+        <span class="tech-pill">Git</span>
+        <span class="tech-pill">Java</span>
+        <span class="tech-pill">OOP</span>
+        <span class="tech-pill">LeetCode</span>
+        <span class="tech-pill">Requests</span>
+        <span class="tech-pill">Regex</span>
+        <span class="tech-pill">HTML &amp; CSS</span>
+        <span class="tech-pill">JavaScript</span>
+        <span class="tech-pill">Bootstrap</span>
+        <!-- duplicate for seamless loop -->
+        <span class="tech-pill">Python</span>
+        <span class="tech-pill">Scikit-learn</span>
+        <span class="tech-pill">Pandas</span>
+        <span class="tech-pill">NumPy</span>
+        <span class="tech-pill">Matplotlib</span>
+        <span class="tech-pill">FastAPI</span>
+        <span class="tech-pill">MySQL</span>
+        <span class="tech-pill">Git</span>
+        <span class="tech-pill">Java</span>
+        <span class="tech-pill">OOP</span>
+        <span class="tech-pill">LeetCode</span>
+        <span class="tech-pill">Requests</span>
+        <span class="tech-pill">Regex</span>
+        <span class="tech-pill">HTML &amp; CSS</span>
+        <span class="tech-pill">JavaScript</span>
+        <span class="tech-pill">Bootstrap</span>
+      </div>
+    </div>
+
+    <!-- Row 2 — scrolls right -->
+    <div class="marquee-wrapper">
+      <div class="marquee-track" style="animation-direction:reverse;animation-duration:34s">
+        <span class="tech-pill">ML Pipelines</span>
+        <span class="tech-pill">Feature Eng.</span>
+        <span class="tech-pill">Regression</span>
+        <span class="tech-pill">Data Cleaning</span>
+        <span class="tech-pill">EDA</span>
+        <span class="tech-pill">Web Scraping</span>
+        <span class="tech-pill">Jupyter</span>
+        <span class="tech-pill">VS Code</span>
+        <span class="tech-pill">GitHub</span>
+        <span class="tech-pill">REST APIs</span>
+        <span class="tech-pill">MAE / RMSE</span>
+        <span class="tech-pill">Linux CLI</span>
+        <span class="tech-pill">Seaborn</span>
+        <span class="tech-pill">Statistics</span>
+        <span class="tech-pill">Model Eval.</span>
+        <span class="tech-pill">ETL</span>
+        <!-- duplicate for seamless loop -->
+        <span class="tech-pill">ML Pipelines</span>
+        <span class="tech-pill">Feature Eng.</span>
+        <span class="tech-pill">Regression</span>
+        <span class="tech-pill">Data Cleaning</span>
+        <span class="tech-pill">EDA</span>
+        <span class="tech-pill">Web Scraping</span>
+        <span class="tech-pill">Jupyter</span>
+        <span class="tech-pill">VS Code</span>
+        <span class="tech-pill">GitHub</span>
+        <span class="tech-pill">REST APIs</span>
+        <span class="tech-pill">MAE / RMSE</span>
+        <span class="tech-pill">Linux CLI</span>
+        <span class="tech-pill">Seaborn</span>
+        <span class="tech-pill">Statistics</span>
+        <span class="tech-pill">Model Eval.</span>
+        <span class="tech-pill">ETL</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- RESUME -->
+  <section id="resume">
+    <h2 class="resume-heading hero-heading fade-up">Resume</h2>
+    <p class="resume-sub fade-up" style="transition-delay:.1s">A snapshot of my education, experience, and accomplishments.</p>
+    <div class="resume-cards">
+
+      <!-- General CV — direct download -->
+      <a href="https://drive.google.com/uc?export=download&id=1sCbyDNqldo_SxrR2yWs_m7CaPIO-8ITs"
+         class="resume-card fade-up" style="transition-delay:.15s" id="resume-general-cv">
+        <div class="resume-card-icon">&#x1F4C4;</div>
+        <div class="resume-card-title">General CV</div>
+      </a>
+
+      <!-- AI/ML CV — direct download -->
+      <a href="https://drive.google.com/uc?export=download&id=1PWya3DmzblQiZg5sd1VHiHDuyE0IQTW2"
+         class="resume-card fade-up" style="transition-delay:.25s" id="resume-aiml-cv">
+        <div class="resume-card-icon">&#x1F9E0;</div>
+        <div class="resume-card-title">AI/ML CV</div>
+      </a>
+
+      <!-- Projects -->
+      <a href="#projects"
+         class="resume-card fade-up" style="transition-delay:.35s" id="resume-projects-link">
+        <div class="resume-card-icon">&#x1F680;</div>
+        <div class="resume-card-title">My Projects</div>
+      </a>
+
+      <!-- LinkedIn -->
+      <a href="https://linkedin.com/in/aarupadaiyarkj" target="_blank" rel="noopener"
+         class="resume-card fade-up" style="transition-delay:.45s" id="resume-linkedin">
+        <div class="resume-card-icon">&#x1F4BC;</div>
+        <div class="resume-card-title">LinkedIn</div>
+      </a>
+
+    </div>
+  </section>
+
   <!-- SOCIAL MEDIA: ON THE WEB -->
   <section id="social">
     <h2 class="social-heading hero-heading fade-up">On The Web</h2>
@@ -1367,27 +1882,282 @@
   -->
     <div class="social-rail active" id="rail-linkedin">
 
-      <!-- LinkedIn Post 1 -->
+      <!-- LinkedIn Post 1: Teaching 100+ students across 15+ countries -->
       <div class="social-card linkedin">
-        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7338984722628259841" allowfullscreen
-          title="LinkedIn post 1" loading="lazy"></iframe>
-      </div>
-      <!-- LinkedIn Post 2 -->
-      <div class="social-card linkedin">
-        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7402180677804236800?collapsed=1"
-          allowfullscreen title="LinkedIn post 2" loading="lazy"></iframe>
+        <div class="li-post-card">
+          <div class="li-post-header">
+            <div class="li-avatar">A</div>
+            <div class="li-author-info">
+              <div class="li-author-name">Aarupadaiyar</div>
+              <div class="li-author-title">Educator · AI &amp; Tech · 100+ Students across 15+ Countries</div>
+            </div>
+            <span class="li-post-date">Mar 2025</span>
+          </div>
+          <div class="li-post-body">🚀 𝐅𝐫𝐨𝐦 𝐚 𝐒𝐦𝐚𝐥𝐥-𝐓𝐨𝐰𝐧 𝐃𝐫𝐞𝐚𝐦𝐞𝐫 𝐭𝐨 𝐓𝐞𝐚𝐜𝐡𝐢𝐧𝐠 𝐀𝐜𝐫𝐨𝐬𝐬 𝟏𝟓+ 𝐂𝐨𝐮𝐧𝐭𝐫𝐢𝐞𝐬 🌍✨
+5 years ago… I was just a kid with a dream.
+Not from a top university. Not a viral sensation. Just me, my books, and a burning passion to teach. 📚🔥
+
+I started by helping one student... then another...
+And suddenly, I was teaching 100+ students from over 15 countries 🌎💡
+From India to Canada, Nigeria to the US, Malaysia to Dubai…
+Math, Physics, and Computer Science — the "tough trio" 💻📐⚡
+
+But here's the truth 👉
+It wasn't easy.
+❌ I've pulled all-nighters to relearn concepts.
+❌ I've battled self-doubt every time a student didn't understand.
+❌ I've faced burnout, pressure, and moments where I almost gave up.
+But I didn't. 💪
+
+Because every time a student said:
+"𝑰 𝒈𝒐𝒕 𝒊𝒕!" 𝒐𝒓
+"𝒀𝒐𝒖 𝒎𝒂𝒅𝒆 𝒊𝒕 𝒔𝒐 𝒔𝒊𝒎𝒑𝒍𝒆!"
+— 𝑰𝒕 𝒘𝒂𝒔 𝒘𝒐𝒓𝒕𝒉 𝒊𝒕. 🏆
+
+✨ I've cried happy tears after breakthroughs.
+✨ I've felt goosebumps seeing students ace what they once feared.
+✨ I've realized that teaching is not just a skill. It's an emotion.
+
+In this journey, I haven't just taught.
+I've grown.
+🎯 More empathetic.
+🎯 More patient.
+🎯 More human.
+
+I realised, I'm not just a tutor. I'm a translator of fear into clarity,
+a mirror of confidence, and a small spark in someone's future. 🚀
+
+To the 100+ students who trusted me — THANK YOU 🙏
+To the aspiring educators — KEEP GOING 💥
+And to the ones doubting themselves — YOU'VE GOT THIS 🔥
+This is just the beginning. Let's change more lives, together 💫
+
+#TeacherLife #GlobalTeaching #Math #Physics #ComputerScience #StudentSuccess #NeverGiveUp #LinkedInDiary #Inspiration #PassionToProfession</div>
+          <div class="li-post-footer">
+            <span class="li-badge">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+              13 comments
+            </span>
+            <a class="li-view-link" href="https://www.linkedin.com/feed/update/urn:li:ugcPost:7338984722628259841" target="_blank" rel="noopener">View on LinkedIn ↗</a>
+          </div>
+        </div>
       </div>
 
-      <!-- LinkedIn Post 3 -->
+      <!-- LinkedIn Post 2: Student Achievers Award / journey from struggle to success -->
       <div class="social-card linkedin">
-        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7461807955554885632?collapsed=1"
-          allowfullscreen title="LinkedIn post 3" loading="lazy"></iframe>
+        <div class="li-post-card">
+          <div class="li-post-header">
+            <div class="li-avatar">A</div>
+            <div class="li-author-info">
+              <div class="li-author-name">Aarupadaiyar</div>
+              <div class="li-author-title">Educator · AI &amp; Tech · Student Achievers Award Recipient</div>
+            </div>
+            <span class="li-post-date">Apr 2025</span>
+          </div>
+          <div class="li-post-body">✨ 𝐒𝐨𝐦𝐞 𝐣𝐨𝐮𝐫𝐧𝐞𝐲𝐬 𝐝𝐨𝐧'𝐭 𝐛𝐞𝐠𝐢𝐧 𝐰𝐢𝐭𝐡 𝐭𝐚𝐥𝐞𝐧𝐭 𝐨𝐫 𝐜𝐨𝐧𝐟𝐢𝐝𝐞𝐧𝐜𝐞… 𝐭𝐡𝐞𝐲 𝐛𝐞𝐠𝐢𝐧 𝐰𝐢𝐭𝐡 𝐬𝐮𝐫𝐯𝐢𝐯𝐚𝐥.
+Mine started on the days I couldn't even afford proper food, yet still forced myself to believe that my life could change.
+
+💔 There were nights I slept hungry because I couldn't ask anyone for help.
+Those were the nights that taught me what desperation really feels like.
+
+👨‍🏫 I took my first 𝐭𝐮𝐭𝐨𝐫𝐢𝐧𝐠 𝐣𝐨𝐛 because I needed money, not because I felt skilled.
+But that small beginning became the anchor that kept me standing.
+
+📱 𝐒𝐨𝐜𝐢𝐚𝐥 𝐦𝐞𝐝𝐢𝐚 𝐦𝐚𝐧𝐚𝐠𝐞𝐦𝐞𝐧𝐭 came into my life accidentally.
+I had no guidance, just Google, failure, and the urge to not give up.
+
+✍️ 𝐆𝐡𝐨𝐬𝐭𝐰𝐫𝐢𝐭𝐢𝐧𝐠 𝐨𝐧 𝐋𝐢𝐧𝐤𝐞𝐝𝐈𝐧 opened doors I never expected.
+Suddenly, people trusted my words even at times I couldn't trust myself.
+
+🛒 𝐒𝐡𝐨𝐩𝐢𝐟𝐲 𝐰𝐞𝐛𝐬𝐢𝐭𝐞 building tested my patience and courage.
+I remember crying after my first client call because I thought I wasn't good enough.
+
+🎯 And slowly… project by project, one tiny win at a time, I went from 𝐧𝐨𝐭 𝐡𝐚𝐯𝐢𝐧𝐠 𝟏𝟎𝟎rs 𝐟𝐨𝐫 𝐚 𝐦𝐞𝐚𝐥 𝐭𝐨 𝐞𝐚𝐫𝐧𝐢𝐧𝐠 𝐢𝐧 𝟓 𝐟𝐢𝐠𝐮𝐫𝐞𝐬.
+Not because I was lucky, but because I refused to stop trying.
+
+✨ But everything truly changed when I found EDU REV.
+It wasn't just a university program; it was the first place that made me feel like my dreams weren't stupid.
+
+🧩 EDU REV gave me permission to experiment, fail, rebuild, and dream loudly.
+It turned a lost student into a builder with direction.
+
+🙏 I'm grateful to my university leadership Lovely Professional University and our Pro-Chancellor for believing that students deserve space to create their own path.
+
+🌟 A very special mention to Dy Dean Dr. Rachit Garg, PhD, PDF.
+His guidance wasn't just academic; it was emotional. He understood my struggles and helped me move from confusion to clarity, from doubt to discipline.
+
+✨ Receiving the 𝐒𝐭𝐮𝐝𝐞𝐧𝐭 𝐀𝐜𝐡𝐢𝐞𝐯𝐞𝐫𝐬 𝐀𝐰𝐚𝐫𝐝 was more than an achievement.
+It was the moment I remembered every rejection, every breakdown, every night I questioned my worth.
+It reminded me how far a person can go when they refuse to stay broken.
+
+🚀 To every student reading this: 𝐲𝐨𝐮 𝐝𝐨𝐧'𝐭 𝐧𝐞𝐞𝐝 𝐚 𝐩𝐞𝐫𝐟𝐞𝐜𝐭 𝐬𝐭𝐚𝐫𝐭.
+𝐘𝐨𝐮 𝐣𝐮𝐬𝐭 𝐧𝐞𝐞𝐝 𝐨𝐧𝐞 𝐫𝐞𝐚𝐬𝐨𝐧 𝐧𝐨𝐭 𝐭𝐨 𝐠𝐢𝐯𝐞 𝐮𝐩; 𝐲𝐨𝐮𝐫 𝐟𝐮𝐭𝐮𝐫𝐞 𝐰𝐢𝐥𝐥 𝐭𝐚𝐤𝐞 𝐜𝐚𝐫𝐞 𝐨𝐟 𝐭𝐡𝐞 𝐫𝐞𝐬𝐭.
+
+💛 If my journey teaches anything, it's this:
+𝐓𝐡𝐞 𝐬𝐚𝐦𝐞 𝐛𝐨𝐲 𝐰𝐡𝐨 𝐨𝐧𝐜𝐞 𝐬𝐭𝐫𝐮𝐠𝐠𝐥𝐞𝐝 𝐟𝐨𝐫 𝐟𝐨𝐨𝐝 𝐢𝐬 𝐧𝐨𝐰 𝐞𝐚𝐫𝐧𝐢𝐧𝐠 𝐢𝐧 𝟓 𝐟𝐢𝐠𝐮𝐫𝐞𝐬… 𝐛𝐞𝐜𝐚𝐮𝐬𝐞 𝐡𝐞 𝐤𝐞𝐩𝐭 𝐬𝐡𝐨𝐰𝐢𝐧𝐠 𝐮𝐩 𝐞𝐯𝐞𝐧 𝐰𝐡𝐞𝐧 𝐢𝐭 𝐡𝐮𝐫𝐭.
+𝐘𝐨𝐮𝐫 𝐬𝐭𝐨𝐫𝐲 𝐜𝐚𝐧 𝐜𝐡𝐚𝐧𝐠𝐞 𝐭𝐨𝐨, 𝐨𝐧𝐞 𝐛𝐫𝐚𝐯𝐞 𝐬𝐭𝐞𝐩 𝐚𝐭 𝐚 𝐭𝐢𝐦𝐞.</div>
+          <div class="li-post-footer">
+            <span class="li-badge">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+              33 comments
+            </span>
+            <a class="li-view-link" href="https://www.linkedin.com/feed/update/urn:li:ugcPost:7402180677804236800" target="_blank" rel="noopener">View on LinkedIn ↗</a>
+          </div>
+        </div>
       </div>
 
-      <!-- LinkedIn Post 4 -->
+      <!-- LinkedIn Post 3: GirlScript Summer of Code 2026 selection -->
       <div class="social-card linkedin">
-        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7340366871461838848?collapsed=1"
-          allowfullscreen title="LinkedIn post 4" loading="lazy"></iframe>
+        <div class="li-post-card">
+          <div class="li-post-header">
+            <div class="li-avatar">A</div>
+            <div class="li-author-info">
+              <div class="li-author-name">Aarupadaiyar</div>
+              <div class="li-author-title">Open Source Contributor · GirlScript Summer of Code 2026</div>
+            </div>
+            <span class="li-post-date">May 2025</span>
+          </div>
+          <div class="li-post-body">"𝐘𝐨𝐮𝐫 𝐏𝐑 𝐡𝐚𝐬 𝐛𝐞𝐞𝐧 𝐫𝐞𝐣𝐞𝐜𝐭𝐞𝐝."
+
+𝐍𝐨𝐭 𝐠𝐨𝐧𝐧𝐚 𝐥𝐢𝐞... 𝐭𝐡𝐚𝐭 𝐬𝐞𝐧𝐭𝐞𝐧𝐜𝐞 𝐮𝐬𝐞𝐝 𝐭𝐨 𝐬𝐜𝐚𝐫𝐞 𝐦𝐞 𝐦𝐨𝐫𝐞 𝐭𝐡𝐚𝐧 𝐬𝐞𝐦𝐞𝐬𝐭𝐞𝐫 𝐫𝐞𝐬𝐮𝐥𝐭𝐬 💀
+
+A few weeks ago, open source genuinely felt intimidating to me.
+
+So many repositories.
+So many contributors.
+So many things I didn't understand.
+
+Meanwhile, I was sitting there trying to figure out:
+• what even a "good first issue" means
+• why Git suddenly breaks everything
+• and how developers casually understand thousands of lines of code 😭
+
+𝐁𝐮𝐭 𝐭𝐨𝐝𝐚𝐲, 𝐈'𝐦 𝐞𝐱𝐜𝐢𝐭𝐞𝐝 𝐭𝐨 𝐬𝐡𝐚𝐫𝐞 𝐭𝐡𝐚𝐭 𝐈 𝐨𝐟𝐟𝐢𝐜𝐢𝐚𝐥𝐥𝐲 𝐠𝐨𝐭 𝐬𝐞𝐥𝐞𝐜𝐭𝐞𝐝 𝐟𝐨𝐫 𝐆𝐢𝐫𝐥𝐒𝐜𝐫𝐢𝐩𝐭 𝐒𝐮𝐦𝐦𝐞𝐫 𝐨𝐟 𝐂𝐨𝐝𝐞 𝟐𝟎𝟐𝟔 🎉
+
+This is the beginning of my open-source journey, and honestly, I'm excited (and slightly terrified) to start contributing, learning, collaborating, and growing as a developer.
+
+I know there'll be:
+✅ rejected PRs
+✅ debugging chaos
+✅ lots of mistakes
+✅ and a LOT to learn
+
+But I'm finally choosing execution over overthinking.
+
+Huge thanks to GirlScript Summer of Code for giving students and beginners a platform to step into the open-source world ❤️
+
+Looking forward to building, learning, and contributing consistently throughout this journey.
+
+Would love to connect with fellow developers and contributors here 🤝
+
+#GSSOC #OpenSource #GitHub #Developers #SoftwareDevelopment #LearningInPublic #Java #Python #TechStudents</div>
+          <div class="li-post-footer">
+            <span class="li-badge">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+              Open source journey
+            </span>
+            <a class="li-view-link" href="https://www.linkedin.com/feed/update/urn:li:ugcPost:7461807955554885632" target="_blank" rel="noopener">View on LinkedIn ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- LinkedIn Post 4: From Digital Marketer to AI Tech Founder -->
+      <div class="social-card linkedin">
+        <div class="li-post-card">
+          <div class="li-post-header">
+            <div class="li-avatar">A</div>
+            <div class="li-author-info">
+              <div class="li-author-name">Aarupadaiyar</div>
+              <div class="li-author-title">AI Tech Founder in Progress · Digital Marketer → Tech Builder</div>
+            </div>
+            <span class="li-post-date">Mar 2025</span>
+          </div>
+          <div class="li-post-body">🎙️ 𝐓𝐨𝐝𝐚𝐲, 𝐈 𝐰𝐚𝐬 𝐢𝐧𝐭𝐞𝐫𝐯𝐢𝐞𝐰𝐞𝐝 𝐟𝐨𝐫 𝐚 𝐧𝐞𝐰𝐬𝐥𝐞𝐭𝐭𝐞𝐫…
+But it wasn't just any interview.
+It was hosted by Chowhitha Anantha, someone whose thoughtful questions made me pause, reflect, and reconnect with my story like never before. 🧡
+Her words didn't just guide a conversation — they sparked a resurfacing of my entire journey.
+As I spoke to her, something awakened in me.
+This post is born from that moment. 👇
+
+🧠 I Spent 10 Years in Digital Marketing…
+📢 Helped brands grow
+🧩 Ran ads, built funnels, crafted content
+🎤 Hosted events, mentored students, closed deals
+🔥 Created communities &amp; strategies that scaled
+
+But behind the campaigns and conversions…
+I was quietly asking myself:
+"𝑰𝒔 𝒕𝒉𝒊𝒔 𝒓𝒆𝒂𝒍𝒍𝒚 𝒎𝒆?"
+
+💔 I Had the Skills. I Had the Clients. I Had the Income.
+But I Didn't Have Fire Anymore.
+
+What do you do when you're successful — but unfulfilled?
+When your soul says:
+"𝒀𝒐𝒖'𝒓𝒆 𝒎𝒆𝒂𝒏𝒕 𝒇𝒐𝒓 𝒔𝒐𝒎𝒆𝒕𝒉𝒊𝒏𝒈 𝒅𝒆𝒆𝒑𝒆𝒓, 𝒓𝒊𝒔𝒌𝒊𝒆𝒓, 𝒓𝒆𝒂𝒍𝒆𝒓…" 🚪
+
+I ignored it.
+Until I couldn't anymore.
+
+🔁 𝟐𝟎𝟐𝟓 — 𝐈 𝐇𝐢𝐭 𝐑𝐄𝐒𝐄𝐓 𝐎𝐧 𝐌𝐲 𝐋𝐢𝐟𝐞
+I left the field I knew for 10 years.
+I let go of everything safe.
+And I chose to start again — from zero.
+
+📌 From Digital Marketer → AI Tech Founder in progress
+📌 From funnels &amp; clicks → neural nets &amp; code
+📌 From teaching others → becoming a student again
+📌 From ₹₹₹ comfort → ₹50K/month reinvested into my dreams
+
+⚒️ 𝑬𝒗𝒆𝒓𝒚 𝑫𝒂𝒚 𝑵𝒐𝒘 𝑭𝒆𝒆𝒍𝒔 𝑳𝒊𝒌𝒆 𝑫𝒂𝒚 1
+📚 I'm learning Machine Learning, AI, Data Science
+🛠️ Building automation tools and AI-based products
+💻 Coding from scratch (and breaking stuff daily!)
+👥 Rebuilding my network with creators &amp; visionaries
+💡 Creating value instead of just content
+
+This isn't just a pivot.
+This is a resurrection. ⚡
+
+🤖 I'm Becoming the Person I Once Wanted to Work For
+🎯 Learning in public, failing forward
+💬 Mentoring, reflecting, growing
+🔥 Living a story that's mine, not borrowed
+
+And guess what?
+I'm doing it without a roadmap. Just relentless belief. 🧭
+
+💬 That Interview Today?
+It Wasn't a Spotlight.
+It Was a Mirror.
+
+I remembered…
+📍 𝑾𝒉𝒚 𝑰 𝒔𝒕𝒂𝒓𝒕𝒆𝒅
+📍 𝑾𝒉𝒐 𝑰'𝒗𝒆 𝒃𝒆𝒄𝒐𝒎𝒆
+📍 𝑾𝒉𝒂𝒕 𝑰 𝒔𝒕𝒊𝒍𝒍 𝒉𝒂𝒗𝒆 𝒕𝒐 𝒑𝒓𝒐𝒗𝒆
+
+And I realised:
+Your life can change — the moment you choose to tell a different story.
+
+🧡 To Anyone Reading This:
+If you're:
+😞 Tired of your "old" self
+😓 Scared to start from scratch
+💥 Ready to risk comfort for calling
+🔥 Hungry to become more
+
+Then this post is for you.
+You're not behind. You're becoming.
+
+#AIEntrepreneur #DigitalMarketingToTech #LifeReset #ReinventionStory #StartupFounder #LearningInPublic #PersonalTransformation #GrowthJourney</div>
+          <div class="li-post-footer">
+            <span class="li-badge">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.77z"/></svg>
+              Reinvention story
+            </span>
+            <a class="li-view-link" href="https://www.linkedin.com/feed/update/urn:li:ugcPost:7340366871461838848" target="_blank" rel="noopener">View on LinkedIn ↗</a>
+          </div>
+        </div>
       </div>
 
       <!-- ADD MORE LINKEDIN CARDS HERE -->
@@ -1492,10 +2262,7 @@
     <div class="blob blob-2"></div>
     <h2 class="about-heading hero-heading fade-up">About Me</h2>
     <p class="about-body fade-up" style="transition-delay:.15s">
-      I&apos;m Aarav — a CSE undergrad at Lovely Professional University obsessed with building things that matter. From
-      ML models that predict surge pricing to job aggregation systems that process 10,000+ listings, I move between
-      machine learning, backend APIs, and full-stack interfaces with equal comfort. I don&apos;t just write code — I
-      engineer outcomes.
+      I&apos;m Aarupadaiyar KJ — a CSE undergrad at Lovely Professional University driven by machine learning and AI. I build predictive models, automate data pipelines, and turn raw datasets into real-world insights. From surge price prediction with MAE/RMSE-validated results to processing 10,000+ internship listings — I don&apos;t just write code, I engineer outcomes. I also have solid basics in HTML, CSS &amp; JS, and have solved 40 LeetCode problems in Java.
     </p>
     <div class="about-stats fade-up" style="transition-delay:.3s">
       <div class="stat-item">
@@ -1532,33 +2299,33 @@
       <div class="skill-item fade-up" style="transition-delay:.1s">
         <div class="skill-num">02</div>
         <div class="skill-body">
-          <div class="skill-name">Backend &amp; APIs</div>
-          <div class="skill-desc">REST API development with FastAPI, web scraping pipelines with Requests and Regex,
-            MySQL databases. Built scalable aggregation systems from scratch.</div>
+          <div class="skill-name">Data Engineering &amp; Automation</div>
+          <div class="skill-desc">Automated extraction, cleaning and transformation pipelines using Python, Pandas, and Requests.
+            Reduced manual processing by 60% at Bitzure handling 25,000+ business records.</div>
         </div>
       </div>
       <div class="skill-item fade-up" style="transition-delay:.2s">
         <div class="skill-num">03</div>
         <div class="skill-body">
-          <div class="skill-name">Data Engineering</div>
-          <div class="skill-desc">Automated extraction, cleaning and transformation workflows. Reduced manual processing
-            by 60% at Bitzure handling 25,000+ business records.</div>
+          <div class="skill-name">Python &amp; APIs</div>
+          <div class="skill-desc">FastAPI for lightweight API services, web scraping with Requests &amp; Regex, MySQL for data persistence.
+            Built data aggregation systems powering internship search platforms.</div>
         </div>
       </div>
       <div class="skill-item fade-up" style="transition-delay:.3s">
         <div class="skill-num">04</div>
         <div class="skill-body">
-          <div class="skill-name">DSA &amp; Systems</div>
-          <div class="skill-desc">Java-first DSA with structured 250+ LeetCode problem roadmap. OOP principles,
-            collections, file handling — applied in real systems like the Book Management console app.</div>
+          <div class="skill-name">Java &amp; DSA Basics</div>
+          <div class="skill-desc">Solved 40 LeetCode problems in Java. Strong grasp of OOP principles, collections,
+            and file handling — applied in the Book Management console app.</div>
         </div>
       </div>
       <div class="skill-item fade-up" style="transition-delay:.4s">
         <div class="skill-num">05</div>
         <div class="skill-body">
-          <div class="skill-name">Frontend</div>
-          <div class="skill-desc">HTML, CSS, Bootstrap, JavaScript — building clean, functional interfaces. Portfolio
-            pages, dashboards, and interactive tools with attention to detail and motion.</div>
+          <div class="skill-name">Web Basics</div>
+          <div class="skill-desc">HTML, CSS, and JavaScript foundations — enough to build clean, functional portfolio pages
+            and interactive dashboards. Not a full-stack dev, but comfortable with the frontend layer.</div>
         </div>
       </div>
     </div>
@@ -1693,16 +2460,15 @@
       </div>
       <div class="card-imgs">
         <div class="img-col">
-          <div class="card-img card-img-sm"
-            style="background:linear-gradient(135deg,#001a10,#003d25);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.2);font-size:.7rem;letter-spacing:.1em">
-            JAVA OOP</div>
-          <div class="card-img card-img-sm"
-            style="background:linear-gradient(135deg,#001a0a,#002d18);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.2);font-size:.7rem;letter-spacing:.1em">
-            COLLECTIONS</div>
+          <img src="library_welcome.png"
+            alt="Library Tracker App — Welcome screen with Student Mode and Admin Mode buttons"
+            class="card-img card-img-sm" style="object-fit:cover">
+          <img src="library_admin.png" alt="Library Management Admin panel with book list and Add New Book form"
+            class="card-img card-img-sm" style="object-fit:cover">
         </div>
-        <div class="card-img card-img-tall"
-          style="background:linear-gradient(135deg,#001a10,#000d08);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.15);font-size:3rem;font-weight:900">
-          ☕</div>
+        <img src="library_student.png"
+          alt="Library Tracker Student view showing available books with Borrow and Return buttons"
+          class="card-img card-img-tall" style="object-fit:cover;object-position:top">
       </div>
     </div>
   </section>
@@ -1745,6 +2511,7 @@
   </section>
 
   <!-- CONTACT -->
+
   <section id="contact">
     <h2 class="contact-heading fade-up">Let&apos;s Build</h2>
     <p class="contact-sub fade-up" style="transition-delay:.1s">Open to AI/ML internships, collaboration on meaningful
@@ -1822,6 +2589,64 @@
       }
     });
   </script>
+
+  <script>
+    // LinkedIn embeds only work on HTTPS (blocked on file:// and localhost).
+    // Default is data-broken="1" (shows fallback button).
+    // On HTTPS, remove the attribute so the live iframes are revealed.
+    if (location.protocol === 'https:') {
+      document.querySelectorAll('.li-wrap[data-broken]').forEach(function (el) {
+        el.removeAttribute('data-broken');
+      });
+    }
+  </script>
+
+  <script>
+    /* ── CUSTOM CURSOR ── */
+    (function () {
+      const dot  = document.getElementById('cursor-dot');
+      const ring = document.getElementById('cursor-ring');
+      if (!dot || !ring) return;
+
+      let mouseX = -100, mouseY = -100;
+      let ringX  = -100, ringY  = -100;
+
+      document.addEventListener('mousemove', function(e) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        dot.style.left = mouseX + 'px';
+        dot.style.top  = mouseY + 'px';
+      });
+
+      /* ring follows with smooth lag */
+      function animateRing() {
+        ringX += (mouseX - ringX) * 0.14;
+        ringY += (mouseY - ringY) * 0.14;
+        ring.style.left = ringX + 'px';
+        ring.style.top  = ringY + 'px';
+        requestAnimationFrame(animateRing);
+      }
+      animateRing();
+
+      /* hover effect — grow ring on interactive elements */
+      var hoverSel = 'a, button, [role="button"], input, textarea, select, .tech-pill, .project-card, .resume-card, .social-card';
+      document.querySelectorAll(hoverSel).forEach(function(el) {
+        el.addEventListener('mouseenter', function() { document.body.classList.add('cursor-hover'); });
+        el.addEventListener('mouseleave', function() { document.body.classList.remove('cursor-hover'); });
+      });
+
+      /* hide when cursor leaves window */
+      document.addEventListener('mouseleave', function() {
+        dot.style.opacity = '0';
+        ring.style.opacity = '0';
+      });
+      document.addEventListener('mouseenter', function() {
+        dot.style.opacity = '1';
+        ring.style.opacity = '1';
+      });
+    })();
+  </script>
+
 </body>
 
 </html>
