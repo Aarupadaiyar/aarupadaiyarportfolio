@@ -810,6 +810,108 @@
       right: -5%;
     }
 
+    /* ── EXPERIENCE ── */
+    #experience {
+      background: var(--bg);
+      padding: 2rem 2.5rem 6rem;
+    }
+
+    .experience-heading {
+      font-size: clamp(3rem, 12vw, 10rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: .9;
+      letter-spacing: -.02em;
+      text-align: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .experience-intro {
+      max-width: 640px;
+      margin: 0 auto 4rem;
+      text-align: center;
+      font-size: clamp(.95rem, 1.6vw, 1.15rem);
+      font-weight: 300;
+      opacity: .7;
+      line-height: 1.7;
+    }
+
+    .timeline {
+      max-width: 720px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .timeline-item {
+      position: relative;
+      display: flex;
+      gap: 1.75rem;
+      padding-bottom: 3.5rem;
+    }
+
+    .timeline-item:last-child {
+      padding-bottom: 0;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 22px;
+      bottom: -3.5rem;
+      width: 2px;
+      background: linear-gradient(var(--accent), var(--accent2));
+      opacity: .3;
+    }
+
+    .timeline-item:last-child::before {
+      display: none;
+    }
+
+    .timeline-marker {
+      flex-shrink: 0;
+      width: 16px;
+      padding-top: 6px;
+    }
+
+    .timeline-dot {
+      display: block;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 15px var(--accent);
+    }
+
+    .timeline-content {
+      flex: 1;
+    }
+
+    .timeline-time {
+      font-family: var(--mono);
+      font-size: .75rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .5rem;
+    }
+
+    .timeline-title {
+      font-size: clamp(1.15rem, 2.2vw, 1.6rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: .6rem;
+      color: var(--white);
+    }
+
+    .timeline-desc {
+      font-size: clamp(.85rem, 1.4vw, 1.05rem);
+      font-weight: 300;
+      opacity: .7;
+      line-height: 1.7;
+      max-width: 560px;
+    }
+
     /* ── SKILLS / SERVICES ── */
     #skills {
       background: #fff;
@@ -934,6 +1036,28 @@
       margin-bottom: .3rem
     }
 
+    .card-cat-row {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      margin-bottom: .3rem;
+      flex-wrap: wrap;
+    }
+
+    .card-cat-row .card-cat {
+      margin-bottom: 0;
+    }
+
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .7rem;
+      letter-spacing: .2em;
+      font-weight: 600;
+      color: #22c55e;
+    }
+
     .card-name {
       font-size: clamp(1.2rem, 2.5vw, 2rem);
       font-weight: 700;
@@ -986,6 +1110,37 @@
 
     .live-btn:hover {
       background: rgba(215, 226, 234, .1)
+    }
+
+    .hero-preview {
+      display: block;
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      margin-top: 1.5rem;
+      overflow: hidden;
+      border-radius: 1.5rem;
+      background: #0a0a0a;
+      border: 1px solid var(--border);
+      container-type: inline-size;
+      cursor: pointer;
+      transition: border-color .3s;
+    }
+
+    .hero-preview:hover {
+      border-color: var(--accent);
+    }
+
+    .hero-preview iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1440px;
+      height: 1200px;
+      border: 0;
+      pointer-events: none;
+      transform: scale(calc(100cqw / 1440px));
+      transform-origin: top left;
     }
 
     .card-imgs {
@@ -1679,6 +1834,10 @@
       /* About */
       #about { padding: 4rem 2rem; }
 
+      /* Experience */
+      #experience { padding: 2rem 2rem 5rem; }
+      .experience-intro { margin-bottom: 3rem; }
+
       /* Skills */
       #skills { padding: 4rem 2rem 5rem; border-radius: 40px 40px 0 0; }
       .skill-item { gap: 1rem; padding: 2rem 0; }
@@ -1745,6 +1904,13 @@
       #about { padding: 4rem 1.25rem; min-height: auto; }
       .about-stats { gap: 1.5rem; }
 
+      /* Experience */
+      #experience { padding: 2rem 1.25rem 4rem; }
+      .experience-intro { margin-bottom: 2.5rem; }
+      .timeline-item { gap: 1.1rem; padding-bottom: 2.5rem; }
+      .timeline-item::before { bottom: -2.5rem; }
+      .timeline-desc { max-width: 100%; }
+
       /* Skills */
       #skills {
         border-radius: 30px 30px 0 0;
@@ -1764,6 +1930,7 @@
       .card-top { flex-direction: column; gap: .5rem; }
       .card-meta { padding: 0; }
       .project-card { padding: 1.5rem 1.25rem; border-radius: 1.5rem; }
+      .hero-preview { margin-top: 1rem; }
 
       /* Dashboard card inside project */
       .dashboard-card { padding: 1.2rem 1.2rem 1rem; }
