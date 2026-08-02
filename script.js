@@ -1,4 +1,4 @@
-﻿// Fade-up observer
+// Fade-up observer
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
@@ -140,5 +140,28 @@
   if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
   drawer.querySelectorAll('.nav-drawer-link').forEach(function(link) {
     link.addEventListener('click', closeDrawer);
+  });
+})();
+
+// ── Projects Rail Arrow Navigation ──
+(function() {
+  var rail = document.getElementById('projects-rail');
+  var prevBtn = document.getElementById('proj-prev');
+  var nextBtn = document.getElementById('proj-next');
+  if (!rail || !prevBtn || !nextBtn) return;
+
+  function getCardWidth() {
+    var first = rail.querySelector('.project-card');
+    if (!first) return 400;
+    var style = getComputedStyle(rail);
+    var gap = parseFloat(style.gap) || 24;
+    return first.getBoundingClientRect().width + gap;
+  }
+
+  nextBtn.addEventListener('click', function() {
+    rail.scrollBy({ left: getCardWidth(), behavior: 'smooth' });
+  });
+  prevBtn.addEventListener('click', function() {
+    rail.scrollBy({ left: -getCardWidth(), behavior: 'smooth' });
   });
 })();
